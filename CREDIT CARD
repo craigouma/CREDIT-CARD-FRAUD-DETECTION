@@ -1,0 +1,45 @@
+#include <iostream>
+#include <string>
+
+int main() {
+  std::string credit_card_number;
+  std::string credit_card_owner;
+  double transaction_amount;
+  std::string transaction_location;
+
+  std::cout << "Enter credit card number: ";
+  std::cin >> credit_card_number;
+
+  std::cout << "Enter credit card owner: ";
+  std::cin >> credit_card_owner;
+
+  std::cout << "Enter transaction amount: ";
+  std::cin >> transaction_amount;
+
+  std::cout << "Enter transaction location: ";
+  std::cin >> transaction_location;
+
+  // Check if the credit card number is valid
+  if (is_valid_credit_card_number(credit_card_number)) {
+    // Check if the credit card owner matches the entered name
+    if (is_valid_credit_card_owner(credit_card_number, credit_card_owner)) {
+      // Check if the transaction amount is within the card's limit
+      if (is_valid_transaction_amount(credit_card_number, transaction_amount)) {
+        // Check if the transaction location is within the cardholder's usual locations
+        if (is_valid_transaction_location(credit_card_number, transaction_location)) {
+          std::cout << "Transaction approved." << std::endl;
+        } else {
+          std::cout << "Transaction declined. Unusual location detected." << std::endl;
+        }
+      } else {
+        std::cout << "Transaction declined. Exceeded card limit." << std::endl;
+      }
+    } else {
+      std::cout << "Transaction declined. Invalid card owner." << std::endl;
+    }
+  } else {
+    std::cout << "Transaction declined. Invalid card number." << std::endl;
+  }
+
+  return 0;
+}
